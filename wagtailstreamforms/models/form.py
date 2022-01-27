@@ -72,6 +72,14 @@ class AbstractForm(models.Model):
         related_name="+",
         help_text=_("The page to redirect to after a successful submission"),
     )
+    address_to = models.EmailField(
+        _("Email to"),
+        blank=True,
+        max_length=350,
+        help_text=_(
+            "Email to send the message to"
+        ),
+    )
     process_form_submission_hooks = HookSelectField(
         verbose_name=_("Submission hooks"), blank=True
     )
@@ -88,6 +96,7 @@ class AbstractForm(models.Model):
         ),
         FieldPanel("process_form_submission_hooks", classname="choice_field"),
         PageChooserPanel("post_redirect_page"),
+        FieldPanel("address_to"),
     ]
 
     field_panels = [StreamFieldPanel("fields")]
